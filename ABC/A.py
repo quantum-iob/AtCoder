@@ -1,2 +1,3 @@
-s = input()
-print('er' if s[len(s)-2::] == 'er' else 'ist')
+N = input()
+n = 4-len(N)
+print('0'*n + N)

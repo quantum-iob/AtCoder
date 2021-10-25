@@ -1,13 +1,41 @@
-from itertools import combinations
-N = int(input())
-xy = [list(map(int, input().split())) for _ in range(N)]
-xy_comb = list(combinations(xy, 3))
-cnt = 0
-for i in range(len(xy_comb)):
-    p1 = xy_comb[i][0]
-    p2 = xy_comb[i][1]
-    p3 = xy_comb[i][2]
-    if (p2[1]-p1[1])*(p3[0]-p1[0]) != (p3[1]-p1[1])*(p2[0]-p1[0]):
-        cnt += 1
+N, M = map(int, input().split())
+A = [list(input()) for _ in range(2*N)]
+x = [0]*(2*N)
+wins = []
+for i in enumerate(x, 0):
+    wins.append(list(i))
 
-print(cnt)
+# print(wins)
+
+for j in range(M):
+    for k in range(0, 2*N-1, 2):
+        p1 = A[wins[k][0]][j]
+        p2 = A[wins[k+1][0]][j]
+        if p1 != p2:
+            if p1 == 'G':
+                if p2 == 'C':
+                    wins[k][1] += 1
+                else:
+                    wins[k+1][1] += 1
+            if p1 == 'C':
+                if p2 == 'P':
+                    wins[k][1] += 1
+                else:
+                    wins[k+1][1] += 1
+            if p1 == 'P':
+                if p2 == 'G':
+                    wins[k][1] += 1
+                else:
+                    wins[k+1][1] += 1
+    wins = sorted(wins, key=lambda x: x[0])
+    wins = sorted(wins, key=lambda x: x[1], reverse=True)
+#     print(wins)
+
+# print(wins)           
+
+for l in range(len(wins)):
+    print(wins[l][0]+1)
+
+
+
+
